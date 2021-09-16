@@ -11,6 +11,7 @@ app.set('view engine', 'ejs');
 app.use(express.static("public"));
 
 let items = ["Buy Food", "Cook Food", "Eat Food"];
+let workItems = ["Check Email", "Log Hours"];
 let numItems = items.length;
 app.get("/", (req, res) => {
 
@@ -28,18 +29,36 @@ app.get("/", (req, res) => {
     //     console.log("Error: current day is equal to: " + currentDay);
     // };
     res.render("list", {
-        day: day,
+        listTitle: day,
         numItems: numItems,
         newListItems: items
     });
 });
 
 app.post("/", (req, res) => {
-    items.push(req.body.newItem);
-    numItems = items.length
+    let item = req.body.newItem;
+    if (req.body.list === "Work") {
+        workItems.push(item);
+        res.redirect("/work");
+    } else {
+    items.push(item);
     res.redirect("/");
-    console.log(item);
+    }
 });
+
+app.get("/work", (req, res) => {
+    res.render("list", {listTitle: "Work List", newListItems: workItems});
+});
+
+app.get("/about", (req, res) => {
+    res.render("about");
+})
+// app.post("/work", (req, res) => {
+//     let item = req.body.newItem;
+//     workItems.push(item);
+//     console.log(workItems);
+//     res.redirect("/work");
+// });
 
 app.listen(3000, () => {
     console.log("Server is now active on Port 3000");
