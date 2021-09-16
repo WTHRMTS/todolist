@@ -4,22 +4,23 @@ const https = require("https");
 
 const app = express();
 app.use(urlencoded({extended: true}));
+app.use(express.static("public"));
 
 app.set('view engine', 'ejs');
-var items = ["Buy Food", "Cook Food", "Eat Food"];
-var numItems = items.length;
+let items = ["Buy Food", "Cook Food", "Eat Food"];
+let numItems = items.length;
 app.get("/", (req, res) => {
 
-    var today = new Date();
-    var options = {
+    let today = new Date();
+    let options = {
         weekday: "long",
         day: "numeric",
         month: "long"
     };
 
-    var day = today.toLocaleDateString("en-AU", options);
+    let day = today.toLocaleDateString("en-AU", options);
     // let daysOfTheWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    // var day = daysOfTheWeek[currentDay];
+    // let day = daysOfTheWeek[currentDay];
     // if (currentDay < 0 || currentDay > 6){
     //     console.log("Error: current day is equal to: " + currentDay);
     // };
