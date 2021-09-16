@@ -4,9 +4,12 @@ const https = require("https");
 
 const app = express();
 app.use(urlencoded({extended: true}));
-app.use(express.static("public"));
+
 
 app.set('view engine', 'ejs');
+
+app.use(express.static("public"));
+
 let items = ["Buy Food", "Cook Food", "Eat Food"];
 let numItems = items.length;
 app.get("/", (req, res) => {
